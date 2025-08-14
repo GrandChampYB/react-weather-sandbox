@@ -1,68 +1,140 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* Weather-inspired design system with sky gradients and atmospheric colors */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
+@layer base {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    /* Sky-inspired background gradients */
+    --background: 210 30% 98%;
+    --foreground: 220 15% 25%;
+
+    /* Weather card styling */
+    --card: 220 20% 97%;
+    --card-foreground: 220 15% 25%;
+
+    --popover: 220 20% 97%;
+    --popover-foreground: 220 15% 25%;
+
+    /* Primary: Sky blue theme */
+    --primary: 200 85% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Cloud gray */
+    --secondary: 220 15% 92%;
+    --secondary-foreground: 220 15% 25%;
+
+    /* Muted: Light sky */
+    --muted: 210 25% 95%;
+    --muted-foreground: 220 10% 55%;
+
+    /* Accent: Sunrise orange */
+    --accent: 35 85% 65%;
+    --accent-foreground: 220 15% 25%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 88%;
+    --input: 220 15% 94%;
+    --ring: 200 85% 55%;
+
+    --radius: 0.75rem;
+
+    /* Weather-specific gradients */
+    --gradient-sky: linear-gradient(135deg, 200 85% 75%, 220 70% 85%);
+    --gradient-sunrise: linear-gradient(135deg, 35 85% 65%, 45 90% 75%);
+    --gradient-storm: linear-gradient(135deg, 220 25% 35%, 240 30% 45%);
+    
+    /* Weather shadows */
+    --shadow-weather: 0 8px 32px -8px hsl(200 85% 55% / 0.2);
+    --shadow-panel: 0 4px 16px -4px hsl(220 15% 25% / 0.1);
+    
+    /* Sidebar styling */
+    --sidebar-background: 220 20% 97%;
+    --sidebar-foreground: 220 15% 25%;
+    --sidebar-primary: 200 85% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 25% 95%;
+    --sidebar-accent-foreground: 220 15% 25%;
+    --sidebar-border: 220 15% 88%;
+    --sidebar-ring: 200 85% 55%;
   }
-  a:hover {
-    color: #747bff;
+
+  .dark {
+    /* Night sky theme */
+    --background: 230 25% 8%;
+    --foreground: 210 20% 85%;
+
+    --card: 230 20% 12%;
+    --card-foreground: 210 20% 85%;
+
+    --popover: 230 20% 12%;
+    --popover-foreground: 210 20% 85%;
+
+    --primary: 200 85% 65%;
+    --primary-foreground: 230 25% 8%;
+
+    --secondary: 230 15% 18%;
+    --secondary-foreground: 210 20% 85%;
+
+    --muted: 230 15% 15%;
+    --muted-foreground: 220 10% 65%;
+
+    --accent: 35 85% 65%;
+    --accent-foreground: 230 25% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 230 15% 20%;
+    --input: 230 15% 16%;
+    --ring: 200 85% 65%;
+    
+    /* Dark weather gradients */
+    --gradient-sky: linear-gradient(135deg, 230 25% 15%, 240 30% 20%);
+    --gradient-sunrise: linear-gradient(135deg, 35 85% 45%, 45 90% 55%);
+    --gradient-storm: linear-gradient(135deg, 230 30% 10%, 240 35% 15%);
+    
+    --shadow-weather: 0 8px 32px -8px hsl(200 85% 65% / 0.3);
+    --shadow-panel: 0 4px 16px -4px hsl(0 0% 0% / 0.3);
+    
+    --sidebar-background: 230 20% 12%;
+    --sidebar-foreground: 210 20% 85%;
+    --sidebar-primary: 200 85% 65%;
+    --sidebar-primary-foreground: 230 25% 8%;
+    --sidebar-accent: 230 15% 18%;
+    --sidebar-accent-foreground: 210 20% 85%;
+    --sidebar-border: 230 15% 20%;
+    --sidebar-ring: 200 85% 65%;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background: linear-gradient(to bottom, hsl(var(--background)), hsl(210 30% 95%));
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .weather-panel {
+    @apply bg-card border border-border rounded-lg shadow-lg;
+    box-shadow: var(--shadow-panel);
+    backdrop-filter: blur(8px);
+  }
+  
+  .weather-gradient {
+    background: var(--gradient-sky);
+  }
+  
+  .sunrise-gradient {
+    background: var(--gradient-sunrise);
   }
 }
