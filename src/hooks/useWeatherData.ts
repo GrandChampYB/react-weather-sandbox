@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import axios from "axios";
 
 interface WeatherData {
   time: string;
@@ -19,10 +20,10 @@ interface WeatherResponse {
 const getCoordinatesFromZip = async (zipCode: string) => {
   try {
     // Using Nominatim (OpenStreetMap) geocoding service
-    const response = await fetch(
+    const response = await axios.get(
       `https://nominatim.openstreetmap.org/search?format=json&q=${zipCode}&countrycodes=us&limit=1`
     );
-    const data = await response.json();
+    const data = response.data;
     
     if (data && data.length > 0) {
       return {
@@ -39,22 +40,17 @@ const getCoordinatesFromZip = async (zipCode: string) => {
 
 const fetchWeatherData = async (lat: number, lon: number): Promise<WeatherResponse> => {
   const baseUrl = "https://api.open-meteo.com/v1/forecast";
-  const params = new URLSearchParams({
+  const params = {
     latitude: lat.toString(),
     longitude: lon.toString(),
     hourly: "temperature_2m,weather_code,relative_humidity_2m,wind_speed_10m,precipitation",
     daily: "temperature_2m_max,temperature_2m_min,weather_code,wind_speed_10m_max,precipitation_sum",
     timezone: "auto",
     forecast_days: "7"
-  });
+  };
 
-  const response = await fetch(`${baseUrl}?${params}`);
-  
-  if (!response.ok) {
-    throw new Error("Failed to fetch weather data");
-  }
-
-  const data = await response.json();
+  const response = await axios.get(baseUrl, { params });
+  const data = response.data;
 
   // Process hourly data (next 24 hours)
   const hourlyData: WeatherData[] = data.hourly.time
