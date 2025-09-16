@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { WeatherPanel } from "@/components/WeatherPanel";
+import { Settings } from "@/components/Settings";
 import { useWeatherData } from "@/hooks/useWeatherData";
 import { MapPin, Search } from "lucide-react";
 
@@ -25,6 +26,9 @@ const Index = () => {
           </h1>
           <p className="text-muted-foreground">Get detailed weather information for any US zip code</p>
         </div>
+
+        {/* Settings Component */}
+        <Settings />
 
         {/* Search Form */}
         <Card className="weather-panel mb-8 max-w-md mx-auto">
